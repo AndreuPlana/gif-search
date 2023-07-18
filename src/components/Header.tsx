@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
+import GiphyService from '../services/giphy';
 
 
 
@@ -33,7 +34,9 @@ const Title = styled.div`
 
 const SubTitle = styled.span`
     font-size: 16px;
-    color: #1d1b1b ;
+    color: #1d1b1b;
+    max-width: 475px;
+    width: 100%;
 `;
 
 const SearchWrapper = styled.div`
@@ -57,13 +60,21 @@ const SearchBtn = styled.div`
 `;
 
 function _Header() {
-
     const [text, setText] = useState<string>("");
 
     useEffect(()=>{
+        debugger;
         if(text.length < 3) return;
-        //TODO search image    
-    },[text])
+        let service = new GiphyService();
+        service.getImagesByName(text);
+    },[text]);
+
+    function change(texts:string){
+        debugger;
+        console.log(texts);
+        setText(texts);
+    }
+
     return (
         <Container>
             <TitlesWrapper>
@@ -73,7 +84,7 @@ function _Header() {
             <SearchWrapper>
                 <TextField
                     placeholder='Search...'
-                    onChange={(event:React.ChangeEvent<HTMLInputElement>) => setText(event.target.value)}
+                    onChange={(event:React.ChangeEvent<HTMLInputElement>) => change(event.target.value)}
                 />
                 <SearchBtn>
                     <SearchIcon htmlColor='white' />
