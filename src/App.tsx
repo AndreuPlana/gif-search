@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Header from './components/Header';
 import './fonts/fonts.css';
+import Grid from './components/Grid';
+import MainProvider from './providers/main';
 
 const Container = styled.div`
   height: 100vh;
@@ -12,9 +14,12 @@ const Container = styled.div`
 
 function App() {
   return (
-    <Container>
-      <Header />
-    </Container>
+    <MainProvider>
+      <Container>
+        <Header />
+        <Grid />
+      </Container>
+    </MainProvider>
   );
 }
 
